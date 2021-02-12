@@ -30,17 +30,7 @@ const questions = [
         type: 'list',
         name: 'licenseBadge',
         message: "Which license badge would you like to apply to your project?",
-        choices: ["Badge 1", "Badge 2", "Badge 3"]
-    },
-    {
-        type: 'input',
-        name: 'licenseLink',
-        message: "Please enter a link for your license."
-    },
-    {
-        type: 'input',
-        name: 'licenseText',
-        message: "Please provide text content for your license."
+        choices: ["Apache", "GNU", "MIT License"]
     },
     {
         type: 'input',
@@ -66,6 +56,7 @@ const promptUser = () => {
         // handle response (answers)
         .then(answers => {
             console.log(answers);
+            return answers;
         })
         // catch errors
         .catch(err => {
@@ -76,7 +67,7 @@ const promptUser = () => {
 };
 
 // function to write README file to ./dist/ 
-const writeFile = fileContent => {
+const writeFile = readmeContent => {
     return new Promise((resolve, reject) => {
         fs.writeFile('./dist/README.md', readmeContent, err => {
             // if there is an error reject promise and send error to the Promise's .catch method
@@ -89,7 +80,7 @@ const writeFile = fileContent => {
             // if everything went well, resolve the Promise and send the successful data to the .then method
             resolve({
                 ok: true,
-                message: 'File created!'
+                message: 'File created successfully!' 
             });
         });
     });
@@ -97,10 +88,15 @@ const writeFile = fileContent => {
 
 //initialize app
 function init() {
-    promptUser();
-    generateMarkdown();
-    writeFile();
-}
+    promptUser()
+    .then(readmeContent => {
+        console.log(readmeContent);
+        writeFile(generateMarkdown(readmeContent));
+    });
+};
 
 // Function call to initialize app
 init();
+
+
+// promptUser();
