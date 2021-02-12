@@ -1,11 +1,9 @@
-// TODO: Include packages needed for this application 
+// packages needed for this application 
 const fs = require('fs');
 const inquirer = require('inquirer');
 const Choice = require('inquirer/lib/objects/choice');
 
-
-// TODO: Create an array of questions for user input
-// enter questions in questions array and call variable in the inquirer promt below
+// questions array for inquirer prompt
 const questions = [
     {
         type: 'input',
@@ -59,6 +57,7 @@ const questions = [
         message: "Please enter your GitHub username so that others may contact you with questions or concerns regarding your project."
     }
 ];
+
 // begin inquirer 
 inquirer    
     .prompt(questions)
