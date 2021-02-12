@@ -2,6 +2,7 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 const Choice = require('inquirer/lib/objects/choice');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // questions array for inquirer prompt
 const questions = [
@@ -59,34 +60,25 @@ const questions = [
 ];
 
 // begin inquirer 
-inquirer    
-    .prompt(questions)
-    // handle response (answers)
-    .then(answers =>{
-        console.log(answers);
-    })
-    // catch errors
-    .catch(err => {
-        // console log error 
-        console.log(err);
-        console.log('Error');
-    });
+const promptUser = () => {
+    return inquirer
+        .prompt(questions)
+        // handle response (answers)
+        .then(answers => {
+            console.log(answers);
+        })
+        // catch errors
+        .catch(err => {
+            // console log error 
+            console.log(err);
+            console.log('Error');
+        });
+};
 
-
-// TODO: Create a function to write README file
-
-// I made this one
-////////////////////
-// function writeToFile("./dist/README.md", data, (err) => {
-//     if (err){
-//         console.log(err);
-//     }
-// }
-
-// copied from module project
+// function to write README file to ./dist/ 
 const writeFile = fileContent => {
-    return new Promise((resolve, reject) =>{
-        fs.writeFile('./dist/index.html', fileContent, err => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/README.md', readmeContent, err => {
             // if there is an error reject promise and send error to the Promise's .catch method
             if (err) {
                 reject(err);
@@ -103,9 +95,11 @@ const writeFile = fileContent => {
     });
 };
 
-// TODO: Create a function to initialize app
+//initialize app
 function init() {
-
+    promptUser();
+    generateMarkdown();
+    writeFile();
 }
 
 // Function call to initialize app
