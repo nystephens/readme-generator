@@ -79,7 +79,7 @@ const writeFile = readmeContent => {
             // if everything went well, resolve the Promise and send the successful data to the .then method
             resolve({
                 ok: true,
-                message: 'File created successfully! Check the "dist" folder for your custom README.md markdown file.' 
+                message: 'File created successfully! Check the "dist" folder for your custom README.md markdown file. ' 
             });
         });
     });
