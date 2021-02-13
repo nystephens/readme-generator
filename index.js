@@ -19,17 +19,17 @@ const questions = [
     {
         type: 'input',
         name: 'installation',
-        message: "Please enter instructions for installing and/or accessing your application."
+        message: "Enter instructions for accessing and / or installing your application."
     },
     {
         type: 'input',
         name: 'usage',
-        message: "How do you use your application?"
+        message: "Give a detailed description of how to use your application."
     },
     {
         type: 'list',
         name: 'licenseBadge',
-        message: "Which license badge would you like to apply to your project?",
+        message: "Choose a license would you like to apply to your project.  If none is selected then this section will be left blank and you may insert your own license.",
         choices: ["Apache", "GNU", "MIT License"]
     },
     {
@@ -55,7 +55,6 @@ const promptUser = () => {
         .prompt(questions)
         // handle response (answers)
         .then(answers => {
-            console.log(answers);
             return answers;
         })
         // catch errors
@@ -73,24 +72,23 @@ const writeFile = readmeContent => {
             // if there is an error reject promise and send error to the Promise's .catch method
             if (err) {
                 reject(err);
-                // return out of the function here to make sure the Promise doesnt accidentally execute the resolve function as well
+                // return out of the function here to make sure the Promise doesnt execute the resolve function.
                 return;
             }
 
             // if everything went well, resolve the Promise and send the successful data to the .then method
             resolve({
                 ok: true,
-                message: 'File created successfully!' 
+                message: 'File created successfully! Check the "dist" folder for your custom README.md markdown file.' 
             });
         });
     });
 };
 
-//initialize app
+// initialize app function
 function init() {
     promptUser()
     .then(readmeContent => {
-        console.log(readmeContent);
         writeFile(generateMarkdown(readmeContent));
     });
 };
@@ -98,5 +96,3 @@ function init() {
 // Function call to initialize app
 init();
 
-
-// promptUser();
